@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  backend:
+    build: backend/
+    volumes:
+    - ./backend:/app
+    ports:
+    - 5000:5000
+    environment:
+    - MONGODB_HOST=mongodb
+    - MONGO_USERNAME=root
+    - MONGO_PASSWORD=example
+    - MONGO_DB=devops_db
+
+  frontend:
+    build: frontend/
+    volumes:
+    - ./frontend/src:/app/src
+    - ./frontend/public:/app/public
+    ports:
+    - 3000:3000
+    #environment:
+
+
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: devops_db
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+
+
+
+#jak chcemy wyzsza ocene to mamy zrobic tak aby ten zestaw działał i do kończyć docer compose. Dopisać frontend i łączyć backend z bazą danych. w przegladrce se wpisac mongodb container korzustamy z obrazu przygotowanego przez kogos, dokumentacja na necie
